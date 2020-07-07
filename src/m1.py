@@ -4,8 +4,8 @@ A problem in which to practice:
   -- using SEQUENCES
 
 Authors: Valerie Galluzzi, David Mutchler, Dave Fisher, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Melina Ferner.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 import random
@@ -83,6 +83,10 @@ class CircleChanger(object):
             :type fill_color: str
             :type colors: sequence of str
         """
+        circle = rg.Circle(rg.Point(x, y), radius)
+        circle.fill_color = fill_color
+        self.circle = circle
+        self.colors = colors
         self.animation_factor = 1  # Smaller => faster animations
         self.seconds_to_sleep = 0.5  # Default for each call to draw
         # --------------------------------------------------------------
@@ -90,9 +94,8 @@ class CircleChanger(object):
         # go too fast or too slow for your tastes.  Setting it to N
         # makes the animations go N times SLOWER.
         # --------------------------------------------------------------
-
         ################################################################
-        # TODO: 2.
+        # DONE: 2.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_init   function (below).
         #   Third, implement and test this method.
@@ -191,6 +194,7 @@ class CircleChanger(object):
         Type hints:
             :type point: rg.Point
         """
+        return point.get_distance_from(self.circle.center)
         ################################################################
         # TODO: 3.
         #   First, READ the doc-string (specification) above.
