@@ -26,8 +26,9 @@ def main():
     That is, a  TEST   function will not be called
     until you begin work on the code that it is testing.
     """
-    if m1_tests.is_implemented('__init__', 20):
-        run_test_init()
+    run_test_init()
+    """if m1_tests.is_implemented('__init__', 20):
+        run_test_init()"""
     if m1_tests.is_implemented('get_distance_from'):
         run_test_get_distance_from()
     if m1_tests.is_implemented('swell_or_shrink_once'):
@@ -87,6 +88,8 @@ class CircleChanger(object):
         circle.fill_color = fill_color
         self.circle = circle
         self.colors = colors
+        self.original_color = fill_color
+        self.current_color_index = len(self.colors) - 1
         self.animation_factor = 1  # Smaller => faster animations
         self.seconds_to_sleep = 0.5  # Default for each call to draw
         # --------------------------------------------------------------
@@ -368,7 +371,7 @@ class CircleChanger(object):
             :rtype CircleChanger
         """
         ################################################################
-        # TODO: 6.
+        # DONE: 6.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_swallow   function (below).
         #   Third, implement and test this method.
@@ -378,6 +381,15 @@ class CircleChanger(object):
         #   the center and radius of the new CircleChanger.
         #   NO CREDIT if you use the distance formula here.
         ################################################################
+        circle1_x = self.circle.center.x
+        circle2_x = other_circle_changer.circle.center.x
+        circle1_y = self.circle.center.y
+        circle2_y = other_circle_changer.circle.center.y
+        new_x = (circle1_x + circle2_x)/2
+        new_y = (circle1_y + circle2_y)/2
+        new_radius = self.get_distance_from(other_circle_changer.circle.center) / 2
+        new_colors = self.colors + other_circle_changer.colors
+        return CircleChanger(new_x, new_y, new_radius, 'red', new_colors)
 
     def change_color(self, index_of_color):
         """
@@ -399,11 +411,12 @@ class CircleChanger(object):
             :type index_of_color: int
         """
         ################################################################
-        # TODO: 7.
+        # DONE: 7.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_change_color   function (below).
         #   Third, implement and test this method.
         ################################################################
+        self.circle.fill_color = self.colors[index_of_color]
 
     def change_to_original_color(self):
         """
@@ -416,11 +429,12 @@ class CircleChanger(object):
                was constructed.
         """
         ################################################################
-        # TODO: 8.
+        # DONE: 8.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_change_to_original_color   function
         #   (below).  Third, implement and test this method.
         ################################################################
+        self.circle.fill_color = self.original_color
 
     def change_to_next_color_in_tuple(self):
         """
@@ -455,11 +469,16 @@ class CircleChanger(object):
         fill color have no effect on or interaction with this method.
         """
         ################################################################
-        # TODO: 9.
+        # DONE: 9.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_change_to_next_color_in_tuple
         #   function (below).  Third, implement and test this method.
         ################################################################
+        if self.current_color_index + 1 == len(self.colors):
+            self.current_color_index = 0
+        else:
+            self.current_color_index = self.current_color_index + 1
+        self.circle.fill_color = self.colors[self.current_color_index]
 
 
 ########################################################################
